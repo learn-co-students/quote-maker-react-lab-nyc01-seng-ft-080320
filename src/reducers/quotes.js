@@ -1,7 +1,6 @@
 import uuid from 'uuid';
 
 export default (state = [], action) => {
-    let indx;
     switch (action.type) {
         case 'ADD_QUOTE':
             return [...state, {...action.quote, id: uuid(), votes: 0 }]
@@ -11,14 +10,18 @@ export default (state = [], action) => {
 
         case 'UP_VOTE_QUOTE':
             return state.map(quote => {
-                if (quote.id !== action.quote.id) quote
+                if (quote.id !== action.quote.id){
+                   return quote 
+                } 
                 return { ...quote, votes: quote.votes + 1 }
             })
 
         case 'DOWN_VOTE_QUOTE':
             let newVotes = action.quote.votes === 0 ? 0 : action.quote.votes - 1
             return state.map(quote => {
-                if (quote.id !== action.quote.id) quote
+                if (quote.id !== action.quote.id){
+                    return quote 
+                 } 
                 return {...quote, votes: newVotes }
             })
             
